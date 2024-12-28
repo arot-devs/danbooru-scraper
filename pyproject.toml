@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "danbooru_scraper"
-version = "0.1.1"
+version = "0.1.2"
 description = "Scraper for the site danbooru"
 authors = ["trojblue <trojblue@gmail.com>"]
 license = "MIT"

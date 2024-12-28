@@ -1,6 +1,7 @@
 import os
 import json
 import httpx
+import time
 from tqdm.auto import tqdm
 from tenacity import retry, stop_after_delay, wait_exponential, retry_if_exception_type
 
@@ -11,8 +12,17 @@ logger = ub.UniLogger()
 class DanbooruScraper:
     BASE_URL = "https://danbooru.donmai.us/posts/{}.json"
 
-    def __init__(self, root_dir: str):
+    def __init__(self, root_dir: str, rpm: float = 0.85):
+        """
+        Initialize the scraper with a root directory and rate limit.
+        
+        Args:
+            root_dir (str): Directory to save metadata files.
+            rpm (float): Requests per second (default: 0.85).
+        """
         self.root_dir = root_dir
+        self.rpm = rpm
+        self.request_interval = 1 / self.rpm  # Calculate time interval between requests
         os.makedirs(root_dir, exist_ok=True)
 
     @retry(
@@ -44,13 +54,15 @@ class DanbooruScraper:
 
     def scrape_posts(self, post_ids: list[str]):
         """Scrape metadata for multiple posts."""
-        pbar = tqdm(post_ids, mininterval=10)
+        pbar = tqdm(post_ids)
         for post_id in pbar:
             pbar.set_description(f"Scraping post ID: {post_id}")
             self.scrape_post(post_id)
+            print("Sleeping for", self.request_interval)
+            time.sleep(self.request_interval)  # Enforce rate limit
 
 
 # Example Usage
 if __name__ == "__main__":
-    scraper = DanbooruScraper(root_dir="danbooru_downloads")
+    scraper = DanbooruScraper(root_dir="danbooru_downloads", rpm=0.85)
     scraper.scrape_posts(["8627389", "8627390", "8627391"])

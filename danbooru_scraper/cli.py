@@ -28,6 +28,7 @@ def main():
     parser.add_argument("--to-id", type=int, help="Ending post ID", required=True)
     parser.add_argument("--local-dir", type=str, help="Local directory to store metadata", required=True)
     parser.add_argument("--upload-dir", type=str, help="S3 directory to upload metadata", required=True)
+    parser.add_argument("--request-interval", type=float, help="Time interval between requests", default=0.85)
     args = parser.parse_args()
 
     scrape_and_process_posts(args.from_id, args.to_id, args.local_dir, args.upload_dir)

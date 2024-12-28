@@ -20,7 +20,7 @@ usage: danbooru-scraper [-h] --from-id FROM_ID --to-id TO_ID
 
 example inputs:
 ```bash
-danbooru-scraper --from-id 8627380 --to-id 8627391 --local-dir danbooru_downloads --upload-dir s3://dataset-ingested/danbooru
+danbooru-scraper --from-id 8627380 --to-id 8627391 --local-dir danbooru_downloads --upload-dir s3://dataset-ingested/danbooru --request-interval 0.85
 ```
 
 ### python:
