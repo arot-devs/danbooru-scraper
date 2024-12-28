@@ -1,0 +1,3 @@
+danbooru_scraper
+pip
+s5cmdpy

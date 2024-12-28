@@ -33,7 +33,9 @@ post_ids = [i for i in range(1000, 10000)]
 scraper.scrape_posts(post_ids)
 ```
 
+### SageMaker:
 
+Please check notebooks/laucch_sagemaker.ipynb for a complete example of distributed scraping on sagemaker
 
 ## Build:
 

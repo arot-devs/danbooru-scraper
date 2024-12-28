@@ -44,7 +44,7 @@ class DanbooruScraper:
 
     def scrape_posts(self, post_ids: list[str]):
         """Scrape metadata for multiple posts."""
-        pbar = tqdm(post_ids)
+        pbar = tqdm(post_ids, mininterval=10)
         for post_id in pbar:
             pbar.set_description(f"Scraping post ID: {post_id}")
             self.scrape_post(post_id)
